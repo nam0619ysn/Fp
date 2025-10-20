@@ -1,55 +1,69 @@
 using UnityEngine;
 
+sing UnityEngine;
+
 namespace MyFps
 {
-    //플레이어와 정면에 있는 오브젝트(콜라이더) 와의 거리를 구하는 클래스
-    //RayCast를 이용한다
+    /// <summary>
+    /// 카메라(시선) 기준으로 정면 Raycast 하여 타겟까지 거리 측정.
+    /// - 1/3인칭 전환(CameraSwitch)과 공존하도록 카메라 Transform을 명시적으로 사용
+    /// - Player 레이어/자기 자신 무시를 위해 LayerMask 사용
+    /// </summary>
     public class PlayerCasting : MonoBehaviour
     {
-        #region Variables
-        //타겟까지의 거리
-        public static float distanceFromTarget;
-        public float toTarget;      //인스펙터창 디버깅용
-        #endregion
+        [Header("Ray Settings")]
+        public Transform rayOrigin;         // 보통 Main Camera Transform 지정
+        public float maxDistance = 3.0f;    // 상호작용 거리 등 목적에 맞게
+        public LayerMask hitMask = ~0;      // 맞출 레이어(기본: 전부). Player 레이어는 제외 권장.
 
-        #region Unity Event Method
-        private void Start()
+        [Header("Debug (Read Only)")]
+        public static float distanceFromTarget;
+        public float toTarget;
+
+        void Awake()
         {
-            //초기화
+            // 지정 안 했을 때 자동으로 메인 카메라 사용
+            if (rayOrigin == null && Camera.main != null)
+                rayOrigin = Camera.main.transform;
+
             distanceFromTarget = Mathf.Infinity;
             toTarget = distanceFromTarget;
         }
 
-        private void Update()
+        // 카메라/플레이어 이동/회전이 끝난 뒤에 쏘는 게 안정적
+        void LateUpdate()
         {
-            //레이를 쏘아 거리 구하기
-            RaycastHit hit; //레이hit 정보를 저장하는 변수
-            
-            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
+            if (rayOrigin == null)
             {
-                distanceFromTarget = hit.distance;
+                distanceFromTarget = Mathf.Infinity;
                 toTarget = distanceFromTarget;
+                return;
             }
 
-        }
-
-        //레이 기즈모 그리기, 길이 100인 레이 기즈모를 그리기
-        private void OnDrawGizmosSelected()
-        {
             RaycastHit hit;
-            float maxDistance = 100f;
-            bool isHit = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, maxDistance);
+            var origin = rayOrigin.position;
+            var dir = rayOrigin.forward;
 
-            Gizmos.color = Color.red;
-            if(isHit)
+            // Player 자신을 피하고 싶다면: Player 레이어를 빼서 설정해두기
+            // 예) hitMask = ~LayerMask.GetMask("Player");
+            if (Physics.Raycast(origin, dir, out hit, maxDistance, hitMask, QueryTriggerInteraction.Ignore))
             {
-                Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
+                distanceFromTarget = hit.distance;
             }
             else
             {
-                Gizmos.DrawRay(transform.position, transform.forward * maxDistance);
+                distanceFromTarget = Mathf.Infinity;
             }
+
+            toTarget = distanceFromTarget;
         }
-        #endregion
+
+        void OnDrawGizmosSelected()
+        {
+            if (rayOrigin == null) return;
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(rayOrigin.position, rayOrigin.forward * Mathf.Min(maxDistance, 100f));
+        }
     }
 }
