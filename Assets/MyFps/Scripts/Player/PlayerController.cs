@@ -82,7 +82,7 @@ namespace MyFps
             }
         }
 
- 0       public void OnFire(InputAction.CallbackContext context)
+        public void OnFire(InputAction.CallbackContext context)
         {
             //무장 체크
             if (PlayerDataManager.Instance.Weapon == WeaponType.None)

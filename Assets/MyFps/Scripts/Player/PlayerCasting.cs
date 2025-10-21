@@ -1,6 +1,6 @@
 using UnityEngine;
 
-sing UnityEngine;
+using UnityEngine;
 
 namespace MyFps
 {

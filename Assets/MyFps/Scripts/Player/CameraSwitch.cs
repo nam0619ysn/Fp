@@ -1,11 +1,16 @@
 using UnityEngine;
 
+// 새 입력 시스템을 쓸 때만 네임스페이스를 임포트
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+using UnityEngine.InputSystem;
+#endif
+
 namespace MyFps
 {
     public class CameraSwitch : MonoBehaviour
     {
         [Header("References")]
-        public Transform player;       // 플레이어 Transform
+        public Transform player;       // (옵션) 필요 없으면 비워도 됨
         public Transform cameraRoot;   // 카메라의 부모(카메라 위치를 이동시킬 대상)
 
         [Header("Camera Offsets (local space)")]
@@ -22,18 +27,17 @@ namespace MyFps
 
         void Start()
         {
-            if (cameraRoot == null)
-                cameraRoot = transform;
+            if (cameraRoot == null) cameraRoot = transform;
 
             isFirstPerson = startAsFirstPerson;
             targetOffset = isFirstPerson ? firstPersonOffset : thirdPersonOffset;
             currentOffset = targetOffset;
+            cameraRoot.localPosition = currentOffset;
         }
 
         void Update()
         {
-            // C키로 시점 전환
-            if (Input.GetKeyDown(KeyCode.C))
+            if (TogglePressed())
             {
                 isFirstPerson = !isFirstPerson;
                 targetOffset = isFirstPerson ? firstPersonOffset : thirdPersonOffset;
@@ -43,7 +47,23 @@ namespace MyFps
             currentOffset = Vector3.Lerp(currentOffset, targetOffset, Time.deltaTime * switchSmooth);
 
             // 카메라 위치 갱신 (local 기준)
-            cameraRoot.localPosition = currentOffset;
+            if (cameraRoot != null)
+                cameraRoot.localPosition = currentOffset;
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 입력 호환 래퍼: 새/구 입력 시스템 모두 지원
+        // ─────────────────────────────────────────────────────────────
+        private bool TogglePressed()
+        {
+            // 새 입력 시스템만 켜져 있는 경우
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+            return Keyboard.current != null && Keyboard.current.cKey.wasPressedThisFrame;
+
+            // 구 입력 시스템(또는 Both)인 경우
+#else
+            return Input.GetKeyDown(KeyCode.C);
+#endif
         }
     }
 }
