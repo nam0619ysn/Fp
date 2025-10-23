@@ -7466,14 +7466,13 @@ GameObject:
   - component: {fileID: 535742102}
   - component: {fileID: 535742106}
   - component: {fileID: 535742107}
-  - component: {fileID: 535742108}
   m_Layer: 0
   m_Name: Third Person Aim Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &535742102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7605,24 +7604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c065a76147ba94c9ca3e954a64d138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &535742108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 535742101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c47daeaaf1aad441ab93e3c09a231f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MyFps.CameraSwitch
-  player: {fileID: 606046714}
-  cameraRoot: {fileID: 535742105}
-  firstPersonOffset: {x: 0, y: 1.6, z: 0}
-  thirdPersonOffset: {x: 0, y: 2, z: -4}
-  switchSmooth: 6
-  startAsFirstPerson: 1
 --- !u!1 &540570708
 GameObject:
   m_ObjectHideFlags: 0
@@ -8779,8 +8760,9 @@ GameObject:
   - component: {fileID: 606046710}
   - component: {fileID: 606046709}
   - component: {fileID: 606046708}
-  - component: {fileID: 606046715}
+  - component: {fileID: 606046707}
   - component: {fileID: 606046706}
+  - component: {fileID: 606046715}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -8807,6 +8789,27 @@ MonoBehaviour:
   hurt03: {fileID: 1796398190}
   fader: {fileID: 2097080387}
   loadToScene: GameOver
+--- !u!114 &606046707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606046705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e1ec602fca32004f951d71fa062d4aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pistolShoot: {fileID: 1602630758}
+  moveSpeed: 7
+  velocity: {x: 0, y: 0, z: 0}
+  groundCheck: {fileID: 1595557264}
+  checkRange: 0.2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  jumpHeight: 1.2
 --- !u!114 &606046708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8848,7 +8851,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 606046707}
         m_TargetAssemblyTypeName: MyFps.PlayerController, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -8880,7 +8883,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 606046707}
         m_TargetAssemblyTypeName: MyFps.PlayerController, Assembly-CSharp
         m_MethodName: OnFire
         m_Mode: 0
@@ -8904,7 +8907,7 @@ MonoBehaviour:
     m_ActionName: 'Player/Crouch[/Keyboard/c]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 606046707}
         m_TargetAssemblyTypeName: MyFps.PlayerController, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
@@ -9110,18 +9113,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 606046705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e1ec602fca32004f951d71fa062d4aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c47daeaaf1aad441ab93e3c09a231f8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MyFps.PlayerController
-  pistolShoot: {fileID: 1602630758}
-  moveSpeed: 10
-  velocity: {x: 0, y: 0, z: 0}
-  groundCheck: {fileID: 1595557264}
-  checkRange: 0.2
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 0
-  jumpHeight: 1
+  m_EditorClassIdentifier: Assembly-CSharp::MyFps.CameraSwitch
+  player: {fileID: 606046714}
+  cameraRoot: {fileID: 738798554}
+  firstPersonOffset: {x: 0, y: 1.6, z: 0}
+  thirdPersonOffset: {x: 0, y: 2, z: -4}
+  switchSmooth: 6
+  startAsFirstPerson: 1
 --- !u!1001 &621144393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10249,13 +10249,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738798553}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.20329148, y: -0, z: -0, w: 0.9791183}
+  m_LocalPosition: {x: 0, y: 1.9099998, z: -2.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1304720312}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 23.459, y: 0, z: 0}
 --- !u!114 &738798555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21345,7 +21345,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1304720312}
   - component: {fileID: 1304720313}
-  - component: {fileID: 1304720314}
   m_Layer: 0
   m_Name: CameraRoot
   m_TagString: Untagged
@@ -21382,30 +21381,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5ba708ad0f4254da5c5f5753f629c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayOrigin: {fileID: 1811715501}
+  rayOrigin: {fileID: 606046714}
   maxDistance: 3
   hitMask:
     serializedVersion: 2
     m_Bits: 4294967295
   toTarget: 0
---- !u!114 &1304720314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1304720311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c47daeaaf1aad441ab93e3c09a231f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MyFps.CameraSwitch
-  player: {fileID: 606046714}
-  cameraRoot: {fileID: 738798554}
-  firstPersonOffset: {x: 0, y: 1.6, z: 0}
-  thirdPersonOffset: {x: 0, y: 2, z: -4}
-  switchSmooth: 6
-  startAsFirstPerson: 1
 --- !u!1 &1307866033
 GameObject:
   m_ObjectHideFlags: 0
