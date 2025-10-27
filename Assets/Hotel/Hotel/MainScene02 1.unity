@@ -6298,7 +6298,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 95df01e253a8f70478a93207be5749b2, type: 2}
   m_sharedMaterial: {fileID: 1847991526652650531, guid: 95df01e253a8f70478a93207be5749b2, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 1847991526652650531, guid: 95df01e253a8f70478a93207be5749b2, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -11569,6 +11570,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1089182006}
     m_Modifications:
+    - target: {fileID: 3310577501230998396, guid: a674b994ed34c424cb413b6726c276e3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 3595805823407653944, guid: a674b994ed34c424cb413b6726c276e3, type: 3}
       propertyPath: m_Name
       value: Candle
@@ -12621,6 +12626,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1089182006}
     m_Modifications:
+    - target: {fileID: 3310577501230998396, guid: a674b994ed34c424cb413b6726c276e3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 3595805823407653944, guid: a674b994ed34c424cb413b6726c276e3, type: 3}
       propertyPath: m_Name
       value: Candle (1)
@@ -12678,6 +12687,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1089182006}
     m_Modifications:
+    - target: {fileID: 3310577501230998396, guid: a674b994ed34c424cb413b6726c276e3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 3595805823407653944, guid: a674b994ed34c424cb413b6726c276e3, type: 3}
       propertyPath: m_Name
       value: Candle (2)
@@ -39280,6 +39293,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1089182006}
     m_Modifications:
+    - target: {fileID: 3310577501230998396, guid: a674b994ed34c424cb413b6726c276e3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 3595805823407653944, guid: a674b994ed34c424cb413b6726c276e3, type: 3}
       propertyPath: m_Name
       value: Candle
